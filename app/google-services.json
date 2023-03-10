@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "763219656500",
+    "firebase_url": "https://philo-db-default-rtdb.firebaseio.com",
+    "project_id": "philo-db",
+    "storage_bucket": "philo-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763219656500:android:5af09a4e4febf85ed76f61",
+        "android_client_info": {
+          "package_name": "com.example.dailyphill"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763219656500-lqf3bgm99lo27037e446d3f7g8sfjf4u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU_FAAq6bF10J8NiacxlOoM1Z_l1nkl8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763219656500-lqf3bgm99lo27037e446d3f7g8sfjf4u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
