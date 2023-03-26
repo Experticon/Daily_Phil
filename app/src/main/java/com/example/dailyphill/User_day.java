@@ -1,20 +1,16 @@
 package com.example.dailyphill;
 
-public class DayCount {
-    public String id, day, text, showText;
+public class User_day {
+    public String id = "", key = "", day = "", showText = "";
 
-    public DayCount()
-    {
-
-    }
-    public DayCount(String id, String day, String text, String showText) {
+    public User_day(String id, String key, String day, String showText) {
         this.id = id;
+        this.key = key;
         this.day = day;
-        this.text = text;
         this.showText = showText;
     }
     public String getId() { return id; }
+    public String getKey() { return key; }
     public String getDay() {return day;}
-    public String getText() {return text;}
     public String getShowText() {return showText;}
 }
