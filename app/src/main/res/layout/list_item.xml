@@ -26,6 +26,7 @@
             android:id="@+id/day_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:maxLength="5"
             android:layout_marginStart="30dp"
             android:gravity="center_vertical"
             android:textColor="@color/black"

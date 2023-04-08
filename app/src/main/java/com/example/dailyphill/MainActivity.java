@@ -231,37 +231,6 @@ public class MainActivity extends AppCompatActivity {
             // ...
         }
     }
-    /*@Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.search_View) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search, menu);
-        MenuItem menuItem = menu.findItem(R.id.search_View);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                String searchStr = newText;
-                recyclerAdapter.getFilter().filter(searchStr);
-                recyclerAdapter.notifyDataSetChanged();
-                return false;
-            }
-        });
-
-        return super.onCreateOptionsMenu(menu);
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
