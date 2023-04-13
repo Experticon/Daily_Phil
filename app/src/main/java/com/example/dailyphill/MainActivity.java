@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         ReloadAdapter();
     }
     boolean check_date_add() {
-            if (Objects.equals(days_list.get(days_list.size() - 1).getDay(), date))
+            if (!days_list.isEmpty() && Objects.equals(days_list.get(days_list.size() - 1).getDay(), date))
             {
                 Toast toast = Toast.makeText(getApplicationContext(),
                         "Возвращайтесь завтра!", Toast.LENGTH_SHORT);

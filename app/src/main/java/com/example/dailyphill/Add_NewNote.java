@@ -103,8 +103,13 @@ public class Add_NewNote extends AppCompatActivity {
                 String id = mDataBase.getKey();
 
                 String text = editText.getText().toString();
-                dayCount = new DayCount(id, full_date, text, textView.getText().toString(), cur_image);
-                mDataBase.child(user).child(year).child("Day").push().setValue(dayCount);
+                dayCount = new DayCount(id, full_date, textView.getText().toString(), cur_image);
+                DatabaseReference databaseReference = mDataBase.child(user).child(year).child("Day").push();
+                String under_key = databaseReference.getKey();
+                mDataBase.child(user).child(year).child("Day").child(under_key).setValue(dayCount);
+                id = mDataBase.getKey();
+                Under_note under_note = new Under_note(id, full_date, text);
+                mDataBase.child(user).child(year).child("Day").child(under_key).child("text").push().setValue(under_note);
 
                 mDataBase = FirebaseDatabase.getInstance().getReference(DAY_KEY);
                 mDataBase.child(current_key).child("text").setValue("");
@@ -139,7 +144,6 @@ public class Add_NewNote extends AppCompatActivity {
                         if (Objects.equals(date, n.getDay())) {
                             current_key = key;
                             textView.setText(n.getShowText());
-                            editText.setText(n.getText());
                             cur_image = n.getImage();
                             //imageView.setImageBitmap(mIcon_val);
                             //imageView.setImageResource(R.drawable.);
