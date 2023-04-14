@@ -20,6 +20,17 @@
                 android:background="@drawable/oval_btn"
                 android:text="@string/back_btn"
                 android:textSize="70sp" />
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+            <Button
+                android:id="@+id/add_unnote_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/other_obal_btn"
+                android:text="@string/add_btn"
+                android:textSize="70sp" />
         </LinearLayout>
 
         <Space
@@ -30,38 +41,48 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
             <TextView
                 android:id="@+id/question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/square_black"
                 android:gravity="center"
-                android:layout_weight="1"
                 android:text=""
                 android:textSize="30sp"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
-                android:padding="15dp"/>
+                android:padding="15dp"
+                android:scrollbars="vertical"/>
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="20dp"/>
-            <ImageView
-                android:id="@+id/this_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp"/>
+                android:layout_height="10dp"/>
 
-            <EditText
-                android:id="@+id/your_note"
+            </LinearLayout>
+            <RelativeLayout
+                android:orientation="vertical"
+                android:id="@+id/put_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/square_black"
-                android:gravity="center_vertical"
-                android:padding="15dp"/>
+                android:layout_weight="0"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_unnote_view"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:gravity="center"
+                android:layout_gravity="bottom"/>
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
