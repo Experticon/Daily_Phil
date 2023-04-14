@@ -1,12 +1,19 @@
 package com.example.dailyphill;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,8 +53,9 @@ public class Watch_Note extends AppCompatActivity {
     private String year;
     private String cur_image;
 
-    ImageView imageView;
-    private boolean isImageScaled = false;
+    View view_name;
+    View v;
+    RelativeLayout lLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +74,6 @@ public class Watch_Note extends AppCompatActivity {
         add_btn = findViewById(R.id.add_unnote_btn);
         back_btn = findViewById(R.id.back_btn);
         textView = findViewById(R.id.question);
-        imageView = findViewById(R.id.this_image);
 
         mDataBase = FirebaseDatabase.getInstance().getReference(USER_KEY);
 
@@ -75,6 +82,11 @@ public class Watch_Note extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(recyclerAdapter);
+
+        lLayout = findViewById(R.id.put_image);
+        LayoutInflater inflater = getLayoutInflater();
+        v = inflater.inflate(R.layout.image, lLayout, false);
+        view_name=v.findViewById(R.id.image_inflate);
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,11 +107,16 @@ public class Watch_Note extends AppCompatActivity {
                     startActivity(intent);
             }
         });
-        imageView.setOnClickListener(v -> {
-            if (!isImageScaled) v.animate().scaleX(1.4f).scaleY(1.4f).setDuration(500);
-            if (isImageScaled) v.animate().scaleX(1f).scaleY(1f).setDuration(500);
-            isImageScaled = !isImageScaled;
+        view_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Watch_Note.this, Watch_Image.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("image_url", cur_image);
+                startActivity(intent);
+            }
         });
+
         recyclerAdapter.setOnItemClickListener(new under_note_adapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
@@ -124,7 +141,8 @@ public class Watch_Note extends AppCompatActivity {
                         //textView1.setText(text);
                         textView.setText(n.getShowText());
                         cur_image = n.getImage();
-                        put_image(cur_image);
+                        if (!n.getImage().isEmpty())
+                            put_image(cur_image);
                     }
                 }
             }
@@ -147,9 +165,12 @@ public class Watch_Note extends AppCompatActivity {
         });
     }
     void put_image (String url) {
+
         Glide.with(this)
                 .load(url)
-                .into(imageView);
+                .into((ImageView) view_name);
+
+        lLayout.addView(v);
     }
     private void ReloadAdapter()
     {
@@ -162,6 +183,7 @@ public class Watch_Note extends AppCompatActivity {
     }
     public void onResume(){
         super.onResume();
+        lLayout.removeView(v);
         reload_list();
     }
     void reload_list()

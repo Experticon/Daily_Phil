@@ -1,11 +1,14 @@
 package com.example.dailyphill;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,12 +38,13 @@ public class Add_New_Under_Note extends AppCompatActivity {
     Button back_btn;
     ImageButton save_btn;
 
-    ImageView imageView;
-    private boolean isImageScaled = false;
+    View view_name;
+    View v;
+    RelativeLayout lLayout;
 
     private String current_key;
     private String user;
-    private DayCount dayCount;
+    private String cur_image;
     private String date;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +56,20 @@ public class Add_New_Under_Note extends AppCompatActivity {
         back_btn = findViewById(R.id.back_btn);
         textView = findViewById(R.id.question);
         editText = findViewById(R.id.your_note);
-        imageView = findViewById(R.id.this_image);
+
+        lLayout = findViewById(R.id.put_image);
+        LayoutInflater inflater = getLayoutInflater();
+        v = inflater.inflate(R.layout.image, lLayout, false);
+        view_name=v.findViewById(R.id.image_inflate);
 
         Bundle arguments = getIntent().getExtras();
         user = arguments.get("current_user").toString();
         year = arguments.get("year").toString();
         current_key = arguments.get("cur_key").toString();
         textView.setText(arguments.get("showText").toString());
-        put_image(arguments.get("image_url").toString());
+        cur_image = arguments.get("image_url").toString();
+        put_image(cur_image);
+
 
         Date currentDate = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
@@ -87,15 +97,24 @@ public class Add_New_Under_Note extends AppCompatActivity {
                 finish();
             }
         });
-        imageView.setOnClickListener(v -> {
-            if (!isImageScaled) v.animate().scaleX(1.4f).scaleY(1.4f).setDuration(500);
-            if (isImageScaled) v.animate().scaleX(1f).scaleY(1f).setDuration(500);
-            isImageScaled = !isImageScaled;
+        view_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Add_New_Under_Note.this, Watch_Image.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("image_url", cur_image);
+                startActivity(intent);
+            }
         });
     }
     void put_image (String url) {
         Glide.with(this)
                 .load(url)
-                .into(imageView);
+                .into((ImageView) view_name);
+        lLayout.addView(v);
+    }
+    public void onResume(){
+        super.onResume();
+        lLayout.removeView(v);
     }
 }

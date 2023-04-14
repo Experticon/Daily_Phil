@@ -2,11 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="1dp">
+    android:layout_margin="1dp"
+    android:background="#FFFFFF">
+
     <View
         android:layout_width="match_parent"
-        android:background="@drawable/figures"
-        android:layout_height="70dp"/>
+        android:layout_height="70dp"
+        android:background="@drawable/figures" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,19 +22,20 @@
             android:layout_marginStart="30dp"
             android:gravity="center_vertical"
             android:textColor="@color/black"
-            android:textSize="11sp"
+            android:textSize="13sp"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/day_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:maxLength="5"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="15dp"
+            android:maxLines="1"
             android:gravity="center_vertical"
+            android:maxLength="7"
+            android:ellipsize="end"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:textStyle="bold" />
 
         <!--  <TextView
@@ -47,13 +50,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end">
-
+            <Space
+                android:layout_width="20sp"
+                android:layout_height="match_parent" />
             <ImageButton
                 android:id="@+id/delete_button"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
-                android:background="@android:color/white"/>
+                android:background="#FFFFFF"
+                android:icon="@android:drawable/ic_menu_delete" />
 
             <Space
                 android:layout_width="40sp"
@@ -62,10 +68,10 @@
             <ImageButton
                 android:id="@+id/update_button"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="30dp"
-                android:background="@android:color/white"/>
+                android:background="#FFFFFF" />
         </LinearLayout>
 
     </LinearLayout>

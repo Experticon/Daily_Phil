@@ -1,5 +1,6 @@
 package com.example.dailyphill;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -7,11 +8,14 @@ import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,8 +56,9 @@ public class Add_NewNote extends AppCompatActivity {
     Button back_btn;
     ImageButton save_btn;
 
-    ImageView imageView;
-    private boolean isImageScaled = false;
+    View view_name;
+    View v;
+    RelativeLayout lLayout;
 
     private String current_key;
     private String user;
@@ -70,7 +75,7 @@ public class Add_NewNote extends AppCompatActivity {
         back_btn = findViewById(R.id.back_btn);
         textView = findViewById(R.id.question);
         editText = findViewById(R.id.your_note);
-        imageView = findViewById(R.id.this_image);
+
 
         mDataBase = FirebaseDatabase.getInstance().getReference(DAY_KEY);
 
@@ -83,6 +88,11 @@ public class Add_NewNote extends AppCompatActivity {
         year = yearFormat.format(currentDate);
         date = dateFormat.format(currentDate);
         full_date = date + "." + year;
+
+        lLayout = findViewById(R.id.put_image);
+        LayoutInflater inflater = getLayoutInflater();
+        v = inflater.inflate(R.layout.image, lLayout, false);
+        view_name=v.findViewById(R.id.image_inflate);
 
         getDataFromDB();
 
@@ -114,6 +124,7 @@ public class Add_NewNote extends AppCompatActivity {
                 mDataBase = FirebaseDatabase.getInstance().getReference(DAY_KEY);
                 mDataBase.child(current_key).child("text").setValue("");
 
+
                 finish();
                 ////////Для вставки новых пустых элементов
                 /*for (int i = 1; i < 31; i ++) {
@@ -127,10 +138,14 @@ public class Add_NewNote extends AppCompatActivity {
 
             }
         });
-        imageView.setOnClickListener(v -> {
-            if (!isImageScaled) v.animate().scaleX(1.4f).scaleY(1.4f).setDuration(500);
-            if (isImageScaled) v.animate().scaleX(1f).scaleY(1f).setDuration(500);
-            isImageScaled = !isImageScaled;
+        view_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Add_NewNote.this, Watch_Image.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("image_url", cur_image);
+                startActivity(intent);
+            }
         });
     }
 
@@ -147,7 +162,8 @@ public class Add_NewNote extends AppCompatActivity {
                             cur_image = n.getImage();
                             //imageView.setImageBitmap(mIcon_val);
                             //imageView.setImageResource(R.drawable.);
-                            put_image(n.getImage());
+                            if (!n.getImage().isEmpty())
+                                put_image(n.getImage());
                             break;
                         }
                         mDataBase.child(key).child("text").setValue("");
@@ -162,6 +178,11 @@ public class Add_NewNote extends AppCompatActivity {
     void put_image (String url) {
         Glide.with(this)
                 .load(url)
-                .into(imageView);
+                .into((ImageView) view_name);
+        lLayout.addView(v);
+    }
+    public void onResume(){
+        super.onResume();
+        lLayout.removeView(v);
     }
 }
